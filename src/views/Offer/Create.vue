@@ -83,6 +83,7 @@ const onSubmit = handleSubmit(async (values) => {
       price: Number(item.price.replace(/\s/g, '')),
       priceType: item.tariffUnit?.value
     })),
+    images: ['https://placehold.co/600x400','https://placehold.co/600x400','https://placehold.co/600x400'],
   }
 
   isLoading.value = true

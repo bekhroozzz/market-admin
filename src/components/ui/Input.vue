@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import {useField} from 'vee-validate';
 import { toRef } from 'vue'
