@@ -44,6 +44,12 @@ const router = createRouter({
           meta: { title: 'Предпросмотр'},
         },
         {
+          path: '/seller-profile',
+          name: 'SellerProfile',
+          component: () => import('../views/SellerProfile/index.vue'),
+          meta: { title: 'Профиль компании' },
+        },
+        {
           path: '/calendar',
           name: 'Calendar',
           component: () => import('../views/Others/Calendar.vue'),
