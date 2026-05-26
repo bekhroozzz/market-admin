@@ -2,6 +2,7 @@
 import Button from '@/components/ui/Button.vue'
 import type { SellerProfile, UpdateSellerProfilePayload } from '@/types/seller-profile.ts'
 import { updateMyProfile } from '@/composables/sellerProfile.ts'
+import { ref } from 'vue'
 
 const props = defineProps<{
   phones: string[]

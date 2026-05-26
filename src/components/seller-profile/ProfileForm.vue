@@ -6,6 +6,7 @@ import Textarea from '@/components/ui/Textarea.vue'
 import Button from '@/components/ui/Button.vue'
 import type { SellerProfile, UpdateSellerProfilePayload } from '@/types/seller-profile.ts'
 import { updateMyProfile } from '@/composables/sellerProfile.ts'
+import { ref } from 'vue'
 
 const props = defineProps<{ profile: SellerProfile }>()
 const emit = defineEmits<{ (e: 'saved', profile: SellerProfile): void }>()
