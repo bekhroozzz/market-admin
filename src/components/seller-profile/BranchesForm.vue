@@ -16,16 +16,15 @@ const successMessage = ref('')
 const errorMessage = ref('')
 
 function addBranch() {
-  localBranches.value.push({ id: crypto.randomUUID(), title: '', address: '' })
+  localBranches.value.push({ title: '', address: '' })
 }
 
-function removeBranch(id: string) {
-  localBranches.value = localBranches.value.filter((b) => b.id !== id)
+function removeBranch(idx: number) {
+  localBranches.value.splice(idx, 1)
 }
 
 async function save() {
-  const missing = localBranches.value.some((b) => !b.title.trim() || !b.address.trim())
-  if (missing) {
+  if (localBranches.value.some((b) => !b.title.trim() || !b.address.trim())) {
     errorMessage.value = 'Заполните название и адрес для каждого филиала'
     return
   }
@@ -51,14 +50,14 @@ async function save() {
 <template>
   <div class="space-y-4">
     <div
-      v-for="branch in localBranches"
-      :key="branch.id"
+      v-for="(branch, idx) in localBranches"
+      :key="idx"
       class="border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-3 relative"
     >
       <button
         type="button"
         class="absolute top-3 right-3 text-error hover:opacity-70 transition-opacity"
-        @click="removeBranch(branch.id)"
+        @click="removeBranch(idx)"
         title="Удалить филиал"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

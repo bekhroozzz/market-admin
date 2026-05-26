@@ -1,4 +1,4 @@
-import { useApiGet, useApiPut, useApiDelete } from '@/composables/useApi.ts'
+import { useApiGet, useApiPatch, useApiDelete } from '@/composables/useApi.ts'
 import { useAuthStore } from '@/stores/auth.ts'
 import { jwtDecode, type JwtPayload } from 'jwt-decode'
 import type { SellerProfile, UpdateSellerProfilePayload, SellerOffer } from '@/types/seller-profile.ts'
@@ -44,7 +44,7 @@ export async function getMyProfile(): Promise<SellerProfile> {
 }
 
 export async function updateMyProfile(payload: UpdateSellerProfilePayload): Promise<SellerProfile> {
-  return useApiPut<SellerProfile>('/api/seller/me/profile', {}, payload as Record<string, unknown>)
+  return useApiPatch<SellerProfile>('/api/seller/me/profile', {}, payload as Record<string, unknown>)
 }
 
 export async function uploadGalleryImage(file: File): Promise<SellerProfile> {

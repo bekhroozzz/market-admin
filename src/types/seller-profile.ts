@@ -1,5 +1,4 @@
 export interface Branch {
-  id: string
   title: string
   address: string
   latitude?: number
