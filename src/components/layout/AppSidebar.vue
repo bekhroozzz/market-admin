@@ -15,16 +15,10 @@ const menuGroups = [
 
       {
         icon: 'box-cube',
-        name: "Работа с предложениями",
+        name: "Предложения",
         subItems: [
-          { name: "Создать новое предложение", path: "/create-offer" },
+          { name: "Создать предложение", path: "/create-offer" },
           { name: "Мои предложения", path: "/my-offers" },
-          { name: "Настройка акций, промокодов", path: "/offer" },
-        ],
-      },
-      { icon: 'list', name: "Работа с клиентами", subItems: [
-          {  name: "Отзывы от посетителей", path: "/offer" },
-          { name: "Сообщения от клиентов", path: "/offer" },
         ],
       },
       {
