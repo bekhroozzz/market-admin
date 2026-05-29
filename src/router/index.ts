@@ -44,6 +44,18 @@ const router = createRouter({
           meta: { title: 'Предпросмотр'},
         },
         {
+          path: '/edit-offer/:id',
+          name: 'EditOffer',
+          component: () => import('../views/Offer/Edit.vue'),
+          meta: { title: 'Редактировать предложение' },
+        },
+        {
+          path: '/offer-reviews/:id',
+          name: 'OfferReviews',
+          component: () => import('../views/Offer/Reviews.vue'),
+          meta: { title: 'Отзывы предложения' },
+        },
+        {
           path: '/seller-profile',
           name: 'SellerProfile',
           component: () => import('../views/SellerProfile/index.vue'),
@@ -53,19 +65,13 @@ const router = createRouter({
           path: '/calendar',
           name: 'Calendar',
           component: () => import('../views/Others/Calendar.vue'),
-          meta: { title: 'Calendar'},
-        },
-        {
-          path: '/profile',
-          name: 'Profile',
-          component: () => import('../views/Others/UserProfile.vue'),
-          meta: { title: 'Profile'},
+          meta: { title: 'Календарь'},
         },
         {
           path: '/basic-tables',
-          name: 'Basic Tables',
+          name: 'BasicTables',
           component: () => import('../views/Tables/BasicTables.vue'),
-          meta: { title: 'Basic Tables'},
+          meta: { title: 'Таблицы'},
         },
       ]
     },
