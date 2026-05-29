@@ -33,7 +33,7 @@ const menuGroups = [
         subItems: [{ name: "Таблица брони", path: "/basic-tables" }],
       },
       { icon: 'calender', name: "Календарь", path: "/calendar", },
-      { icon: 'user-circle', name: "Профиль компании", path: "/profile", },
+      { icon: 'user-circle', name: "Профиль компании", path: "/seller-profile", },
     ],
   },
 ];
