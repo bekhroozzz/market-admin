@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="mb-6 flex items-center gap-4">
-      <RouterLink to="/chats" class="btn btn-ghost btn-sm">
-        ← Назад
-      </RouterLink>
+      <RouterLink to="/chats" class="btn btn-ghost btn-sm"> ← Назад </RouterLink>
       <h2 class="text-2xl font-bold">Детали чата</h2>
     </div>
 
@@ -11,9 +9,9 @@
       <span class="loading loading-spinner loading-lg text-primary" />
     </div>
 
-    <div v-else-if="chat" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div v-else-if="chat" class="grid grid-cols-1 lg:grid-cols-4 gap-6">
       <!-- Participants + offer -->
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4 sticky top-0">
         <div class="bg-white dark:bg-gray-900 rounded-xl shadow p-5">
           <h3 class="font-semibold text-sm text-gray-500 uppercase mb-3">Оффер</h3>
           <p class="font-bold text-lg">{{ chat.offer?.title }}</p>
@@ -48,10 +46,7 @@
       </div>
 
       <!-- Messages + input -->
-      <div
-        class="lg:col-span-2 bg-white dark:bg-gray-900 rounded-xl shadow flex flex-col"
-        style="min-height: 500px; max-height: 700px"
-      >
+      <div class="lg:col-span-3 bg-white dark:bg-gray-900 rounded-xl h-full shadow flex flex-col">
         <div class="p-4 border-b font-semibold flex items-center justify-between">
           <span>Сообщения</span>
           <span v-if="isSeller" class="text-xs text-green-600 font-medium">● Продавец</span>
@@ -103,14 +98,15 @@
               </div>
             </div>
 
-            <div v-if="!messages.length" class="text-center text-gray-400 py-10">
-              Нет сообщений
-            </div>
+            <div v-if="!messages.length" class="text-center text-gray-400 py-10">Нет сообщений</div>
           </template>
         </div>
 
         <!-- Reply input (seller only — admin views read-only) -->
-        <div v-if="isSeller" class="p-3 border-t flex items-end gap-2">
+        <div
+          v-if="isSeller"
+          class="p-3 sticky bottom-0 bg-white shadow dark:bg-gray-900 border-t flex items-end gap-2"
+        >
           <textarea
             v-model="messageText"
             placeholder="Напишите ответ покупателю..."
@@ -123,8 +119,14 @@
             :disabled="!messageText.trim() || sending"
             @click="handleSend"
           >
-            <svg v-if="!sending" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            <svg
+              v-if="!sending"
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
             </svg>
             <span v-else class="loading loading-spinner loading-xs" />
           </button>
@@ -195,10 +197,11 @@ const messagesEl = ref<HTMLElement | null>(null)
 
 const hasMore = computed(() => messages.value.length < total.value)
 
+let unsubMsg: (() => void) | null = null
+let unsubRead: (() => void) | null = null
+
 // Seller check: current user is the seller of this chat
-const isSeller = computed(
-  () => chat.value !== null && currentUserId.value === chat.value.sellerId,
-)
+const isSeller = computed(() => chat.value !== null && currentUserId.value === chat.value.sellerId)
 
 async function loadChat() {
   loading.value = true
@@ -286,7 +289,11 @@ function scrollToBottom() {
 function formatDate(dateStr: string | null) {
   if (!dateStr) return '—'
   return new Date(dateStr).toLocaleString('ru-RU', {
-    day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
   })
 }
 
@@ -303,7 +310,7 @@ onMounted(async () => {
 
   joinChat(chatId)
 
-  const unsubMsg = onMessageCreated((msg) => {
+  unsubMsg = onMessageCreated((msg) => {
     if (msg.chatId !== chatId) return
 
     // If own message: replace optimistic
@@ -327,18 +334,18 @@ onMounted(async () => {
     api(`/api/chats/${chatId}/read`, { method: 'POST' }).catch(() => {})
   })
 
-  const unsubRead = onMessageRead((data) => {
+  unsubRead = onMessageRead((data) => {
     if (data.chatId !== chatId) return
     messages.value = messages.value.map((m) => ({
       ...m,
       isRead: m.senderId === currentUserId.value ? true : m.isRead,
     }))
   })
+})
 
-  onBeforeUnmount(() => {
-    leaveChat(chatId)
-    unsubMsg()
-    unsubRead()
-  })
+onBeforeUnmount(() => {
+  leaveChat(chatId)
+  unsubMsg?.()
+  unsubRead?.()
 })
 </script>
