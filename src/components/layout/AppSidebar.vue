@@ -2,10 +2,11 @@
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useSidebar } from "@/composables/useSidebar";
+import { useChatStore } from "@/stores/chat";
 
 const route = useRoute();
-
 const { isExpanded, isMobileOpen, isHovered, openSubmenu } = useSidebar();
+const chatStore = useChatStore();
 
 const menuGroups = [
   {
@@ -28,6 +29,7 @@ const menuGroups = [
       },
       { icon: 'calender', name: "Календарь", path: "/calendar", },
       { icon: 'user-circle', name: "Профиль компании", path: "/seller-profile", },
+      { icon: 'chat', name: "Чаты", path: "/chats", },
     ],
   },
 ];
@@ -184,6 +186,13 @@ const endTransition = (el) => {
                     class="menu-item-text"
                     >{{ item.name }}</span
                   >
+                  <!-- Unread badge for Chats -->
+                  <span
+                    v-if="item.path === '/chats' && chatStore.unreadCount > 0"
+                    class="ml-auto flex-shrink-0 min-w-[20px] h-5 px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center"
+                  >
+                    {{ chatStore.unreadCount > 99 ? '99+' : chatStore.unreadCount }}
+                  </span>
                 </router-link>
                 <transition
                   @enter="startTransition"

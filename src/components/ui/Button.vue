@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, resolveComponent } from 'vue'
+import { RouterLink } from 'vue-router'
 
 interface Props {
   size?: 'xs' |'sm' | 'md' | 'lg' | 'xl'

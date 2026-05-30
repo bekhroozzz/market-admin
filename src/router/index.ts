@@ -73,6 +73,18 @@ const router = createRouter({
           component: () => import('../views/Tables/BasicTables.vue'),
           meta: { title: 'Таблицы'},
         },
+        {
+          path: '/chats',
+          name: 'Chats',
+          component: () => import('../views/Chat/ChatList.vue'),
+          meta: { title: 'Чаты' },
+        },
+        {
+          path: '/chats/:id',
+          name: 'ChatDetail',
+          component: () => import('../views/Chat/ChatDetail.vue'),
+          meta: { title: 'Детали чата' },
+        },
       ]
     },
     {

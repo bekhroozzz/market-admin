@@ -32,6 +32,7 @@
     "jwt-decode": "^4.0.0",
     "ofetch": "^1.4.1",
     "pinia": "^3.0.3",
+    "socket.io-client": "^4.8.3",
     "swiper": "^11.2.1",
     "vee-validate": "^4.15.1",
     "vue": "^3.5.13",
