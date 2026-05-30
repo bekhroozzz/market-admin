@@ -9,7 +9,7 @@
       <span class="loading loading-spinner loading-lg text-primary" />
     </div>
 
-    <div v-else-if="chat" class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <div v-else-if="chat" class="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[calc(100vh-12rem)]">
       <!-- Participants + offer -->
       <div class="flex flex-col gap-4 sticky top-0">
         <div class="bg-white dark:bg-gray-900 rounded-xl shadow p-5">
@@ -46,7 +46,7 @@
       </div>
 
       <!-- Messages + input -->
-      <div class="lg:col-span-3 bg-white dark:bg-gray-900 rounded-xl h-full shadow flex flex-col">
+      <div class="lg:col-span-3 bg-white dark:bg-gray-900 rounded-xl shadow flex flex-col overflow-hidden">
         <div class="p-4 border-b font-semibold flex items-center justify-between">
           <span>Сообщения</span>
           <span v-if="isSeller" class="text-xs text-green-600 font-medium">● Продавец</span>
